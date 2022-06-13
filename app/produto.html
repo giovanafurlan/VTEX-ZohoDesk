@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zoho Desk - Apps</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="shortcut icon" href="#">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<style>
+    .container-sm {
+        margin: 0 auto;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    p {
+        margin: 2px !important;
+    }
+
+    .div-btn {
+        width: 100%;
+        margin-left: 2px;
+    }
+
+
+    #items {
+        padding: 20px;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flex2 {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .espaco {
+        margin: 10px 0 10px 0;
+    }
+
+    .div-img {
+        width: 15%;
+    }
+
+    .div-direita {
+        text-align: end;
+    }
+
+    .div-cem {
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <div class="container-sm">
+        <section class="form-data2">
+            <div class="flex espaco">
+                <img class="rounded me-2 logo-loja"
+                    src="https://play-lh.googleusercontent.com/P23o3e-ilhbQ5QJROZR6YtAeiqbk0syMGGMxKjpRTkgcsmaN3124NMV4tzpC_3NRxw"
+                    width="50" height="50" alt="Logo">
+                <h1 class="display-6 nome-loja">Nome da loja</h1>
+            </div>
+            <div class="input-group mb-3">
+                <input id="busca" type="text" class="form-control" placeholder="ID do pedido"
+                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button onclick="gerar()" id="btn-buscar" class="btn btn-outline-secondary"
+                    type="button">Buscar</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body" id="dados">
+                            <h5 class="card-title">Endereço de entrega</h5>
+                            <p class="nome-cliente"></p>
+                            <br>
+                            <p class="rua-numero"></p>
+                            <p class="bairro"></p>
+                            <p class="cidade-estado"></p>
+                            <p class="cep-pais"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="card mb-3" id="items">
+                        <h5 class="card-title">Itens</h5>
+                        <div class="pai">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://js.zohostatic.com/support/developer_sdk/v1/js/ZohoDeskClientSDK.min.js"></script>
+    <script src="./js/script.js" charset="utf-8"></script>
+    <script src="./js/extension.js" charset="utf-8"></script>
+
+</body>
+
+</html>
