@@ -22,7 +22,7 @@ const handleFormSubmit = event => {
     const apiToken = document.getElementById("validationCustom03").value;
 
     const objeto = new Object();
-    objeto.nomeLoja = nomeLoja;
+    objeto.storeName = nomeLoja;
     objeto.apiKey = apiKey;
     objeto.apiToken = apiToken;
 
@@ -40,6 +40,7 @@ function gerar() {
     document.querySelector('.pai').innerHTML = ''
 
     const userData = JSON.parse(localStorage.getItem('dados'));
+    console.log(userData);
 
     //1237862776512-01
     //1238081274635-01
