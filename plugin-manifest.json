@@ -3,9 +3,12 @@
     "en"
   ],
   "service": "DESK",
-  "storage": false,
+  "storage": true,
   "type": "personal",
-  "whiteListedDomains": [],
+  "whiteListedDomains": [
+    "https://webpeak.vtexcommercestable.com.br/api/oms/pvt/orders/",
+    "https://desk.zoho.com"
+  ],
   "modules": {
     "widgets": [
       {
@@ -23,7 +26,16 @@
     ]
   },
   "zohoAuthorisation": {},
-  "connectors": [],
+  "connectors": [
+    {
+      "connectionLinkName": "vtex",
+      "connectionName": "vtex",
+      "serviceName": "vtex",
+      "userAccess": false,
+      "isUserDefinedService": true,
+      "sharedBy": "781380854"
+    }
+  ],
   "config": [],
   "moduleSupport": true
 }

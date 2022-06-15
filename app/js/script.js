@@ -1,7 +1,8 @@
 //Função do bootstrap que valida o Login
+//Bootstrap function that validates Logi
 (function () {
     'use strict'
-    var forms = document.querySelectorAll('.needs-validation')
+    const forms = document.querySelectorAll('.needs-validation')
     Array.prototype.slice.call(forms)
         .forEach(function (form) {
             form.addEventListener('submit', function (event) {
@@ -14,33 +15,46 @@
         })
 })();
 
-const handleFormSubmit = event => {
-    event.preventDefault();
+//Função que valida o Login para poder mudar a página
+//Function that validates the Login to be able to change the page
+function acesso(){
+    const dados = document.getElementById("form");
+    const isValid = dados.checkValidity();
 
-    const nomeLoja = document.getElementById("validationCustom01").value;
-    const apiKey = document.getElementById("validationCustom02").value;
-    const apiToken = document.getElementById("validationCustom03").value;
+    if (isValid == true) {
+        //Função que armazena dados de login em localStorage
+        //Function that stores login data in localStorage
+        const handleFormSubmit = event => {
+            event.preventDefault();
 
-    const objeto = new Object();
-    objeto.storeName = nomeLoja;
-    objeto.apiKey = apiKey;
-    objeto.apiToken = apiToken;
+            const nomeLoja = document.getElementById("validationCustom01").value;
+            const apiKey = document.getElementById("validationCustom02").value;
+            const apiToken = document.getElementById("validationCustom03").value;
 
-    localStorage.setItem('dados', JSON.stringify(objeto));
+            const objeto = new Object();
+            objeto.storeName = nomeLoja;
+            objeto.apiKey = apiKey;
+            objeto.apiToken = apiToken;
+
+            localStorage.setItem('dados', JSON.stringify(objeto));
+        };
+        //Chama a função ao enviar as informações
+        //Call the function when sending the information
+        const form = document.getElementsByClassName('form-data')[0];
+        form.addEventListener('submit', handleFormSubmit);
+        window.location.href = "produto.html";
+    }
 };
 
-//Chama a função ao enviar as informações
-const form = document.getElementsByClassName('form-data')[0];
-form.addEventListener('submit', handleFormSubmit);
-
+//Função que faz requisição com a VTEX e retorna as informações
 //Função que faz requisição com a VTEX e retorna as informações
 function gerar() {
 
-    //Limpa os dados para uma nova pesquisa
+    //Limpar os dados para uma nova pesquisa
+    //Clear data for a new search
     document.querySelector('.pai').innerHTML = ''
 
     const userData = JSON.parse(localStorage.getItem('dados'));
-    console.log(userData);
 
     //1237862776512-01
     //1238081274635-01
@@ -48,7 +62,7 @@ function gerar() {
     //1238310669840-01
     axios({
         method: 'get',
-        url: 'https://' + userData.nomeLoja + '.vtexcommercestable.com.br/api/oms/pvt/orders/' + document.querySelector("#busca").value,
+        url: 'https://' + userData.storeName + '.vtexcommercestable.com.br/api/oms/pvt/orders/' + document.querySelector("#busca").value,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -282,11 +296,64 @@ function gerar() {
     }).catch(error => {
         console.log(error);
     });
-}
+};
 
-//Zoho Desk
+//Requisição Zoho Desk
+//Zoho Desk Request
 window.onload = function () {
     ZOHODESK.extension.onload().then(function (App) {
+        console.log("Foi");
 
+        ZOHODESK.get("nome", "key", "token").then(function (userResponse) {
+            const accountName = document.querySelector('.nome-loja').value;
+            console.log(accountName);
+            accountName = userResponse["nome"];
+
+            const apiKey = document.querySelector('.api-key').value;
+            console.log(apiKey);
+            apiKey = userResponse["key"];
+
+            const apiToken = document.querySelector('.api-token').value;
+            console.log(apiToken);
+            apiToken = userResponse["token"];
+
+            ZOHODESK.request({
+                url: "https://" + accountName + ".vtexcommercestable.com.br/api/oms/pvt/orders/" + document.querySelector('#busca').value,
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-VTEX-API-AppKey': apiKey,
+                    'X-VTEX-API-AppToken': apiToken
+                },
+                postBody: {},
+                connectionLinkName: "vtex",
+                data: {},
+            }).then((response) => {
+                const resultParse = JSON.parse(response);
+                resultParse = JSON.parse(resultParse.response).statusMessage;
+                console.log(resultParse);
+
+                const eventData = resultParse.events[0];
+
+                ZOHODESK.setImmediate("database", {
+                    key: accountName,
+                    value: {
+                        accountNameValue: eventData.nome,
+                    },
+                    queriableValue: "accountName",
+                    key: apiKey,
+                    value: {
+                        apiKeyValue: eventData.key,
+                    },
+                    queriableValue: "apiKey",
+                    key: apiToken,
+                    value: {
+                        apiTokenValue: eventData.token,
+                    },
+                    queriableValue: "apiToken"
+                });
+            });
+        });
     });
 };
