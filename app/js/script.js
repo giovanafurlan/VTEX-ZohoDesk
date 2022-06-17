@@ -17,7 +17,7 @@
 
 //Função que valida o Login para poder mudar a página
 //Function that validates the Login to be able to change the page
-function acesso(){
+function acesso() {
     const dados = document.getElementById("form");
     const isValid = dados.checkValidity();
 
@@ -27,22 +27,17 @@ function acesso(){
         const handleFormSubmit = event => {
             event.preventDefault();
 
-            const nomeLoja = document.getElementById("validationCustom01").value;
-            const apiKey = document.getElementById("validationCustom02").value;
-            const apiToken = document.getElementById("validationCustom03").value;
+            const data = new FormData(event.target);
 
-            const objeto = new Object();
-            objeto.storeName = nomeLoja;
-            objeto.apiKey = apiKey;
-            objeto.apiToken = apiToken;
+            const value = Object.fromEntries(data.entries());
 
-            localStorage.setItem('dados', JSON.stringify(objeto));
+            console.log(value);
         };
         //Chama a função ao enviar as informações
         //Call the function when sending the information
         const form = document.getElementsByClassName('form-data')[0];
         form.addEventListener('submit', handleFormSubmit);
-        window.location.href = "produto.html";
+        // window.location.href = "produto.html";
     }
 };
 
@@ -298,62 +293,102 @@ function gerar() {
     });
 };
 
-//Requisição Zoho Desk
-//Zoho Desk Request
+//Tentativa de requisição Zoho Desk
+//Zoho Desk Request attempt
+const sampleRequestObj = {
+    url: "https://desk.zoho.com/api/v1/installedExtensions/{{installationId}}/configParams",
+    OAuth: {
+        "scope": "Desk.extensions.CREATE"
+    },
+    type: "POST",
+    headers: {
+        "orgId": 781380854,
+        "Content-Type": "application/json"
+    },
+    requestBody: [{
+            "name": "nomeLoja",
+            "type": "text",
+            "value": "",
+            "is_secure": true
+        },
+        {
+            "name": "apiKey",
+            "type": "text",
+            "value": "",
+            "is_secure": true
+        },
+        {
+            "name": "apiToken",
+            "type": "text",
+            "value": "",
+            "is_secure": true
+        }
+    ]
+}
+
 window.onload = function () {
     ZOHODESK.extension.onload().then(function (App) {
         console.log("Foi");
-
-        ZOHODESK.get("nome", "key", "token").then(function (userResponse) {
-            const accountName = document.querySelector('.nome-loja').value;
-            console.log(accountName);
-            accountName = userResponse["nome"];
-
-            const apiKey = document.querySelector('.api-key').value;
-            console.log(apiKey);
-            apiKey = userResponse["key"];
-
-            const apiToken = document.querySelector('.api-token').value;
-            console.log(apiToken);
-            apiToken = userResponse["token"];
-
-            ZOHODESK.request({
-                url: "https://" + accountName + ".vtexcommercestable.com.br/api/oms/pvt/orders/" + document.querySelector('#busca').value,
-                type: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-VTEX-API-AppKey': apiKey,
-                    'X-VTEX-API-AppToken': apiToken
-                },
-                postBody: {},
-                connectionLinkName: "vtex",
-                data: {},
-            }).then((response) => {
-                const resultParse = JSON.parse(response);
-                resultParse = JSON.parse(resultParse.response).statusMessage;
-                console.log(resultParse);
-
-                const eventData = resultParse.events[0];
-
-                ZOHODESK.setImmediate("database", {
-                    key: accountName,
-                    value: {
-                        accountNameValue: eventData.nome,
-                    },
-                    queriableValue: "accountName",
-                    key: apiKey,
-                    value: {
-                        apiKeyValue: eventData.key,
-                    },
-                    queriableValue: "apiKey",
-                    key: apiToken,
-                    value: {
-                        apiTokenValue: eventData.token,
-                    },
-                    queriableValue: "apiToken"
-                });
-            });
+        //Get ticket related data
+        ZOHODESK.get(sampleRequestObj).then(function (res) {
+            console.log(res);
+        }).catch(function (err) {
+            //error Handling
         });
+
+        //To Set data in Desk UI Client
+        ZOHODESK.set('ticket.comment', {
+            'content': "Test comment"
+        }).then(function (res) {
+            //response Handling
+        }).catch(function (err) {
+            //error Handling
+        });
+
+        //Access Data Storage for an extension
+        //Get the saved data of an extension from data storage
+        ZOHODESK.get('database', {
+            'key': 'key1',
+            'queriableValue': 'value1'
+        }).then(function (response) {
+            //response Handling
+        }).catch(function (err) {
+            //error Handling
+        })
+
+        //Save data in to data staorage
+        ZOHODESK.set('database', {
+            'key': 'key_1',
+            'value': {
+                'id': 123
+            },
+            'queriableValue': 'value1'
+        }).then(function (response) {
+            //response Handling
+        }).catch(function (err) {
+            //error Handling
+        })
+
+        //Change tabs in ticket detailview
+        ZOHODESK.invoke('ROUTE_TO', 'ticket.attachments');
+
+        //To Insert the content in the current opened reply editor from extension
+        ZOHODESK.invoke('Insert', 'ticket.replyEditor', {
+            content: "<p>your content</p>"
+        });
+
+        //To listen to an event in desk
+        App.instance.on('comment_Added', function (data) {
+            //data handling 
+        });
+
+        //To access locale
+        App.locale;
+
+        //To access localresources
+        App.localeResource
+
+        //To Know more on these, please read the documentation
+
     });
 };

@@ -1,12 +1,12 @@
 {
   "locale": [
-    "en"
+    "pt"
   ],
   "service": "DESK",
   "storage": true,
   "type": "personal",
   "whiteListedDomains": [
-    "https://webpeak.vtexcommercestable.com.br/api/oms/pvt/orders/",
+    "https://{{nomeLoja}}.vtexcommercestable.com.br/api/oms/pvt/orders/",
     "https://desk.zoho.com"
   ],
   "modules": {
@@ -21,9 +21,7 @@
     ]
   },
   "cspDomains": {
-    "connect-src": [
-      "https://webpeak.vtexcommercestable.com.br/api/oms/pvt/orders/"
-    ]
+    "connect-src": []
   },
   "zohoAuthorisation": {},
   "connectors": [
@@ -36,6 +34,25 @@
       "sharedBy": "781380854"
     }
   ],
-  "config": [],
+  "config": [
+    {
+      "name": "nomeLoja",
+      "type": "text",
+      "value": "",
+      "is_secure": true
+    },
+    {
+      "name": "apiKey",
+      "type": "text",
+      "value": "",
+      "is_secure": true
+    },
+    {
+      "name": "apiToken",
+      "type": "text",
+      "value": "",
+      "is_secure": true
+    }
+  ],
   "moduleSupport": true
 }

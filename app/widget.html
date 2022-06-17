@@ -6,8 +6,8 @@
 	<title>Zoho Desk - Apps</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-		<link rel="shortcut icon" href="#">
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<link rel="shortcut icon" href="#">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -71,13 +71,13 @@
 							class="rounded img-fluid" alt="Sample image">
 					</div>
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-						<form id="form" class="row g-3 needs-validation" method="get" novalidate
-							action="produto.html">
+						<form id="form" class="row g-3 needs-validation" method="get" novalidate action="produto.html">
 							<a href="https://dev-webpeak.sfo3.digitaloceanspaces.com/Tutorial.pdf"
 								download="Tutorial.pdf" class="link-dark">Como conseguir os dados de acesso</a>
 							<div class="form-outline mb-4">
 								<label for="validationCustom01" class="form-label">Nome da Loja</label>
-								<input type="text" class="form-control nome-loja" id="validationCustom01" required>
+								<input type="text" class="form-control nome-loja" id="validationCustom01"
+									name="nomeLoja" required>
 								<div class="valid-feedback">
 									Tudo certo!
 								</div>
@@ -85,7 +85,8 @@
 
 							<div class="form-outline mb-4">
 								<label for="validationCustom02" class="form-label">X-VTEX-API-AppKey</label>
-								<input type="text" class="form-control api-key" id="validationCustom02" required>
+								<input type="text" class="form-control api-key" id="validationCustom02" name="apiKey"
+									required>
 								<div class="valid-feedback">
 									Tudo certo!
 								</div>
@@ -93,14 +94,16 @@
 
 							<div class="form-outline mb-4">
 								<label for="validationCustom03" class="form-label">X-VTEX-API-AppToken</label>
-								<input type="text" class="form-control api-token" id="validationCustom03" required>
+								<input type="text" class="form-control api-token" id="validationCustom03"
+									name="apiToken" required>
 								<div class="valid-feedback">
 									Tudo certo!
 								</div>
 							</div>
 
 							<div class="col-12">
-								<button id="btn-acessa" onclick="acesso()" class="btn btn-primary" type="submit">Entrar</button>
+								<button id="btn-acessa" onclick="acesso()" class="btn btn-primary"
+									type="submit">Entrar</button>
 							</div>
 						</form>
 					</div>
@@ -110,8 +113,62 @@
 	</div>
 
 	<script src="https://js.zohostatic.com/support/developer_sdk/v1/js/ZohoDeskClientSDK.min.js"></script>
-	<script src="./js/script.js" charset="utf-8"></script>
 	<script src="./js/extension.js" charset="utf-8"></script>
+	<script>
+		//Tentativa de requisição Zoho Desk
+		//Zoho Desk Request attempt
+		const sampleRequestObj = {
+			url: "https://desk.zoho.com/api/v1/installedExtensions/{{installationId}}/configParams",
+			OAuth: {
+				"scope": "Desk.extensions.CREATE"
+			},
+			requestType: "POST",
+			headers: {
+				"orgId": 781380854,
+				"Authorization": "1000.5b597f34599d1b00fb2ee83b1b4e42ea.0a29c7aa7f296165191890ac44ec0aee",
+				"Content-Type": "application/json"
+			},
+			requestBody: [{
+					"name": "nomeLoja",
+					"type": "text",
+					"value": "",
+					"is_secure": true
+				},
+				{
+					"name": "apiKey",
+					"type": "text",
+					"value": "",
+					"is_secure": true
+				},
+				{
+					"name": "apiToken",
+					"type": "text",
+					"value": "",
+					"is_secure": true
+				}
+			]
+		}
+
+		window.onload = function () {
+			ZOHODESK.extension.onload().then(function (App) {
+				console.log("It worked here")
+				ZOHODESK.request(sampleRequestObj).then(res => {
+					// Implement your logic here
+					console.log(res);
+				}, (error) => {
+					// Implement your logic here		
+				})
+				//To access locale
+				App.locale;
+
+				//To access localresources
+				App.localeResource
+
+				//To Know more on these, please read the documentation
+
+			});
+		};
+	</script>
 
 </body>
 
