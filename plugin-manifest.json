@@ -26,16 +26,20 @@
     ]
   },
   "zohoAuthorisation": {},
-  "connectors": [
+  "connectors": [],
+  "config": [
     {
-      "connectionLinkName": "97a31158-0497-40e8-b932-40cf4480ad65-781380854_740955000000243005-vtex",
-      "connectionName": "Teste2-vtex",
-      "serviceName": "97a31158-0497-40e8-b932-40cf4480ad65-vtex",
-      "userAccess": true,
-      "isUserDefinedService": false,
-      "sharedBy": "781380854"
+      "name": "nomeLoja",
+      "value": ""
+    },
+    {
+      "name": "apiKey",
+      "value": ""
+    },
+    {
+      "name": "apiToken",
+      "value": ""
     }
   ],
-  "config": [],
   "moduleSupport": true
 }

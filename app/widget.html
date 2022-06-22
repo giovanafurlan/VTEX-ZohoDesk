@@ -138,15 +138,10 @@
 		window.onload = function () {
 			ZOHODESK.extension.onload().then(function (App) {
 				ZOHODESK.get('user.email').then(function (response) {
-					console.log(response);
-					const status = response.status;
-					const email = response.user.email;
-					const email2 = response.email;
-					
-					console.log(email);
-					console.log(email);
+					console.log(response);					
+					const email = (response['user.email']);
 
-					console.log(email);
+					
 				}).catch(function (err) {
 					//Error Handling
 				});
