@@ -14,6 +14,7 @@
 <style>
 	.container-sm {
 		margin: 0 auto;
+		margin-top: 10vh;
 	}
 
 	a {
@@ -58,6 +59,20 @@
 	.div-cem {
 		width: 100%;
 	}
+
+	.logos {
+		display: flex;
+	}
+
+	.logo {
+		max-width: 260px;
+		max-height: 45vh;
+	}
+
+	.logo2 {
+		max-width: 250px;
+		max-height: 45vh;
+	}
 </style>
 
 <body>
@@ -66,14 +81,16 @@
 		<section class="form-data">
 			<div class="container-fluid h-custom">
 				<div class="row d-flex justify-content-center align-items-center h-100">
-					<div class="col-md-9 col-lg-6 col-xl-5">
-						<img src="https://dev-webpeak.sfo3.digitaloceanspaces.com/images/logo-vtex-zohoDesk.png"
-							class="rounded img-fluid" alt="Sample image">
+					<div class="col-md-9 col-lg-6 col-xl-5 logos">
+						<img src="https://dev-webpeak.sfo3.digitaloceanspaces.com/images/logo-zohoDesk.png"
+							class="rounded img-fluid logo" alt="Logo - Zoho Desk">
+						<img src="https://dev-webpeak.sfo3.digitaloceanspaces.com/images/logo-vtex.png"
+							class="rounded img-fluid logo2" alt="Logo - VTEX">
 					</div>
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 						<form id="form" class="row g-3 needs-validation" method="get" novalidate action="produto.html">
 							<a href="https://dev-webpeak.sfo3.digitaloceanspaces.com/Tutorial.pdf"
-								download="Tutorial.pdf" class="link-dark">Como conseguir os dados de acesso</a>
+								download="Tutorial.pdf" class="link-dark">Como obter os dados de acesso</a>
 							<div class="form-outline mb-4">
 								<label for="validationCustom01" class="form-label">Nome da Loja</label>
 								<input type="text" class="form-control nome-loja" id="validationCustom01"
@@ -117,47 +134,22 @@
 	<script>
 		//Tentativa de requisição Zoho Desk
 		//Zoho Desk Request attempt
-		const sampleRequestObj = {
-			url: "https://desk.zoho.com/api/v1/installedExtensions/{{installationId}}/configParams",
-			OAuth: {
-				"scope": "Desk.extensions.CREATE"
-			},
-			requestType: "POST",
-			headers: {
-				"orgId": 781380854,
-				"Authorization": "1000.5b597f34599d1b00fb2ee83b1b4e42ea.0a29c7aa7f296165191890ac44ec0aee",
-				"Content-Type": "application/json"
-			},
-			requestBody: [{
-					"name": "nomeLoja",
-					"type": "text",
-					"value": "",
-					"is_secure": true
-				},
-				{
-					"name": "apiKey",
-					"type": "text",
-					"value": "",
-					"is_secure": true
-				},
-				{
-					"name": "apiToken",
-					"type": "text",
-					"value": "",
-					"is_secure": true
-				}
-			]
-		}
 
 		window.onload = function () {
 			ZOHODESK.extension.onload().then(function (App) {
-				console.log("It worked here")
-				ZOHODESK.request(sampleRequestObj).then(res => {
-					// Implement your logic here
-					console.log(res);
-				}, (error) => {
-					// Implement your logic here		
-				})
+				ZOHODESK.get('user.email').then(function (response) {
+					console.log(response);
+					const status = response.status;
+					const email = response.user.email;
+					const email2 = response.email;
+					
+					console.log(email);
+					console.log(email);
+
+					console.log(email);
+				}).catch(function (err) {
+					//Error Handling
+				});
 				//To access locale
 				App.locale;
 

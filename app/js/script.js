@@ -1,5 +1,5 @@
 //Função do bootstrap que valida o Login
-//Bootstrap function that validates Logi
+//Bootstrap function that validates Login
 (function () {
     'use strict'
     const forms = document.querySelectorAll('.needs-validation')
@@ -32,12 +32,15 @@ function acesso() {
             const value = Object.fromEntries(data.entries());
 
             console.log(value);
+
+            localStorage.setItem('dados', JSON.stringify(value));
+
         };
         //Chama a função ao enviar as informações
         //Call the function when sending the information
         const form = document.getElementsByClassName('form-data')[0];
         form.addEventListener('submit', handleFormSubmit);
-        // window.location.href = "produto.html";
+        window.location.href = "produto.html";
     }
 };
 
@@ -47,9 +50,9 @@ function gerar() {
 
     //Limpar os dados para uma nova pesquisa
     //Clear data for a new search
-    document.querySelector('.pai').innerHTML = ''
+    document.querySelector('.pai').innerHTML = '';
 
-    const userData = JSON.parse(localStorage.getItem('dados'));
+    const userData = JSON.parse(localStorage.getItem("dados"));
 
     //1237862776512-01
     //1238081274635-01
@@ -57,7 +60,7 @@ function gerar() {
     //1238310669840-01
     axios({
         method: 'get',
-        url: 'https://' + userData.storeName + '.vtexcommercestable.com.br/api/oms/pvt/orders/' + document.querySelector("#busca").value,
+        url: 'https://' + userData.nomeLoja + '.vtexcommercestable.com.br/api/oms/pvt/orders/' + document.querySelector("#busca").value,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -290,105 +293,5 @@ function gerar() {
 
     }).catch(error => {
         console.log(error);
-    });
-};
-
-//Tentativa de requisição Zoho Desk
-//Zoho Desk Request attempt
-const sampleRequestObj = {
-    url: "https://desk.zoho.com/api/v1/installedExtensions/{{installationId}}/configParams",
-    OAuth: {
-        "scope": "Desk.extensions.CREATE"
-    },
-    type: "POST",
-    headers: {
-        "orgId": 781380854,
-        "Content-Type": "application/json"
-    },
-    requestBody: [{
-            "name": "nomeLoja",
-            "type": "text",
-            "value": "",
-            "is_secure": true
-        },
-        {
-            "name": "apiKey",
-            "type": "text",
-            "value": "",
-            "is_secure": true
-        },
-        {
-            "name": "apiToken",
-            "type": "text",
-            "value": "",
-            "is_secure": true
-        }
-    ]
-}
-
-window.onload = function () {
-    ZOHODESK.extension.onload().then(function (App) {
-        console.log("Foi");
-        //Get ticket related data
-        ZOHODESK.get(sampleRequestObj).then(function (res) {
-            console.log(res);
-        }).catch(function (err) {
-            //error Handling
-        });
-
-        //To Set data in Desk UI Client
-        ZOHODESK.set('ticket.comment', {
-            'content': "Test comment"
-        }).then(function (res) {
-            //response Handling
-        }).catch(function (err) {
-            //error Handling
-        });
-
-        //Access Data Storage for an extension
-        //Get the saved data of an extension from data storage
-        ZOHODESK.get('database', {
-            'key': 'key1',
-            'queriableValue': 'value1'
-        }).then(function (response) {
-            //response Handling
-        }).catch(function (err) {
-            //error Handling
-        })
-
-        //Save data in to data staorage
-        ZOHODESK.set('database', {
-            'key': 'key_1',
-            'value': {
-                'id': 123
-            },
-            'queriableValue': 'value1'
-        }).then(function (response) {
-            //response Handling
-        }).catch(function (err) {
-            //error Handling
-        })
-
-        //Change tabs in ticket detailview
-        ZOHODESK.invoke('ROUTE_TO', 'ticket.attachments');
-
-        //To Insert the content in the current opened reply editor from extension
-        ZOHODESK.invoke('Insert', 'ticket.replyEditor', {
-            content: "<p>your content</p>"
-        });
-
-        //To listen to an event in desk
-        App.instance.on('comment_Added', function (data) {
-            //data handling 
-        });
-
-        //To access locale
-        App.locale;
-
-        //To access localresources
-        App.localeResource
-
-        //To Know more on these, please read the documentation
-
     });
 };

@@ -1,10 +1,10 @@
 {
   "locale": [
-    "pt"
+    "en"
   ],
   "service": "DESK",
   "storage": true,
-  "type": "personal",
+  "type": "org",
   "whiteListedDomains": [
     "https://{{nomeLoja}}.vtexcommercestable.com.br/api/oms/pvt/orders/",
     "https://desk.zoho.com"
@@ -21,38 +21,21 @@
     ]
   },
   "cspDomains": {
-    "connect-src": []
+    "connect-src": [
+      "https://{{nomeLoja}}.vtexcommercestable.com.br/api/oms/pvt/orders/"
+    ]
   },
   "zohoAuthorisation": {},
   "connectors": [
     {
-      "connectionLinkName": "vtex",
-      "connectionName": "vtex",
-      "serviceName": "vtex",
-      "userAccess": false,
-      "isUserDefinedService": true,
+      "connectionLinkName": "97a31158-0497-40e8-b932-40cf4480ad65-781380854_740955000000243005-vtex",
+      "connectionName": "Teste2-vtex",
+      "serviceName": "97a31158-0497-40e8-b932-40cf4480ad65-vtex",
+      "userAccess": true,
+      "isUserDefinedService": false,
       "sharedBy": "781380854"
     }
   ],
-  "config": [
-    {
-      "name": "nomeLoja",
-      "type": "text",
-      "value": "",
-      "is_secure": true
-    },
-    {
-      "name": "apiKey",
-      "type": "text",
-      "value": "",
-      "is_secure": true
-    },
-    {
-      "name": "apiToken",
-      "type": "text",
-      "value": "",
-      "is_secure": true
-    }
-  ],
+  "config": [],
   "moduleSupport": true
 }
