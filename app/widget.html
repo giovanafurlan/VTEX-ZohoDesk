@@ -8,13 +8,11 @@
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="shortcut icon" href="#">
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 </head>
 
 <style>
 	.container-sm {
 		margin: 0 auto;
-		margin-top: 10vh;
 	}
 
 	a {
@@ -59,104 +57,442 @@
 	.div-cem {
 		width: 100%;
 	}
-
-	.logos {
-		display: flex;
-	}
-
-	.logo {
-		max-width: 260px;
-		max-height: 45vh;
-	}
-
-	.logo2 {
-		max-width: 250px;
-		max-height: 45vh;
-	}
 </style>
 
 <body>
 
-	<div class="container-sm">
-		<section class="form-data">
-			<div class="container-fluid h-custom">
-				<div class="row d-flex justify-content-center align-items-center h-100">
-					<div class="col-md-9 col-lg-6 col-xl-5 logos">
-						<img src="https://dev-webpeak.sfo3.digitaloceanspaces.com/images/logo-zohoDesk.png"
-							class="rounded img-fluid logo" alt="Logo - Zoho Desk">
-						<img src="https://dev-webpeak.sfo3.digitaloceanspaces.com/images/logo-vtex.png"
-							class="rounded img-fluid logo2" alt="Logo - VTEX">
+	<main class="container-sm dados" style="display: inline-block;">
+		<form id="form" class="needs-validation" action="#" method="post" novalidate>
+			<a href="https://dev-webpeak.sfo3.digitaloceanspaces.com/Tutorial.pdf" download="Tutorial.pdf"
+				class="link-dark">Como obter os dados de acesso</a>
+			<div class="form-outline mb-4">
+				<label for="validationCustom01" class="form-label">Nome da Loja</label>
+				<input type="text" class="form-control nome-loja" id="validationCustom01" name="nomeLoja" required>
+				<div class="valid-feedback">
+					Tudo certo!
+				</div>
+			</div>
+			<div class="form-outline mb-4">
+				<label for="validationCustom02" class="form-label">X-VTEX-API-AppKey</label>
+				<input type="text" class="form-control api-key" id="validationCustom02" name="apiKey" required>
+				<div class="valid-feedback">
+					Tudo certo!
+				</div>
+			</div>
+			<div class="form-outline mb-4">
+				<label for="validationCustom03" class="form-label">X-VTEX-API-AppToken</label>
+				<input type="text" class="form-control api-token" id="validationCustom03" name="apiToken" required>
+				<div class="valid-feedback">
+					Tudo certo!
+				</div>
+			</div>
+			<div class="col-12">
+				<button id="btn-acessa" class="btn btn-primary" type="button">Entrar</button>
+			</div>
+		</form>
+	</main>
+
+	<main class="container-sm consulta" style="display: none;">
+		<form id="form2" action="#" method="post">
+			<div class="flex espaco">
+				<img class="rounded me-2 logo-loja"
+					src="https://play-lh.googleusercontent.com/P23o3e-ilhbQ5QJROZR6YtAeiqbk0syMGGMxKjpRTkgcsmaN3124NMV4tzpC_3NRxw"
+					width="50" height="50" alt="Logo">
+				<h1 class="display-6 nome-loja">Nome da loja</h1>
+			</div>
+			<div class="input-group mb-3">
+				<input id="busca" type="text" class="form-control" placeholder="ID do pedido" aria-label="ID do pedido"
+					aria-describedby="button-addon2">
+				<button id="btn-buscar" class="btn btn-outline-secondary" type="button">Buscar</button>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="card">
+						<div class="card-body" id="dados">
+							<h5 class="card-title">Endereço de entrega</h5>
+							<p class="nome-cliente"></p>
+							<br>
+							<p class="rua-numero"></p>
+							<p class="bairro"></p>
+							<p class="cidade-estado"></p>
+							<p class="cep-pais"></p>
+						</div>
 					</div>
-					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-						<form id="form" class="row g-3 needs-validation" method="get" novalidate action="produto.html">
-							<a href="https://dev-webpeak.sfo3.digitaloceanspaces.com/Tutorial.pdf"
-								download="Tutorial.pdf" class="link-dark">Como obter os dados de acesso</a>
-							<div class="form-outline mb-4">
-								<label for="validationCustom01" class="form-label">Nome da Loja</label>
-								<input type="text" class="form-control nome-loja" id="validationCustom01"
-									name="nomeLoja" required>
-								<div class="valid-feedback">
-									Tudo certo!
-								</div>
-							</div>
+				</div>
+				<div class="col-sm-9">
+					<div class="card mb-3" id="items">
+						<h5 class="card-title">Itens</h5>
+						<div class="pai">
 
-							<div class="form-outline mb-4">
-								<label for="validationCustom02" class="form-label">X-VTEX-API-AppKey</label>
-								<input type="text" class="form-control api-key" id="validationCustom02" name="apiKey"
-									required>
-								<div class="valid-feedback">
-									Tudo certo!
-								</div>
-							</div>
-
-							<div class="form-outline mb-4">
-								<label for="validationCustom03" class="form-label">X-VTEX-API-AppToken</label>
-								<input type="text" class="form-control api-token" id="validationCustom03"
-									name="apiToken" required>
-								<div class="valid-feedback">
-									Tudo certo!
-								</div>
-							</div>
-
-							<div class="col-12">
-								<button id="btn-acessa" onclick="acesso()" class="btn btn-primary"
-									type="submit">Entrar</button>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-	</div>
+		</form>
+	</main>
 
 	<script src="https://js.zohostatic.com/support/developer_sdk/v1/js/ZohoDeskClientSDK.min.js"></script>
-	<script src="./js/extension.js" charset="utf-8"></script>
+	<script src="js/extension.js" charset="utf-8"></script>
 	<script>
-		//Tentativa de requisição Zoho Desk
-		//Zoho Desk Request attempt
-
 		window.onload = function () {
-			ZOHODESK.extension.onload().then(function (App) {
-				ZOHODESK.get('user.email').then(function (response) {
-					console.log(response);					
-					const email = (response['user.email']);
+			ZOHODESK.extension.onload().then((App) => {
 
-					
-				}).catch(function (err) {
-					//Error Handling
+				const acesso = document.getElementById("btn-acessa");
+
+				acesso.addEventListener("click", () => {
+
+					const nomeLoja = document.getElementById("validationCustom01").value;
+					const apiKey = document.getElementById("validationCustom02").value;
+					const apiToken = document.getElementById("validationCustom03").value;
+
+					ZOHODESK.set('extension.config', {
+						name: 'nomeLoja',
+						value: nomeLoja
+					}).then(function (res) {
+						// console.log(res);
+					}).catch(function (err) {
+						console.log(err);
+					});
+
+					ZOHODESK.set('extension.config', {
+						name: 'apiKey',
+						value: apiKey
+					}).then(function (res) {
+						// console.log(res);
+					}).catch(function (err) {
+						console.log(err);
+					});
+
+					ZOHODESK.set('extension.config', {
+						name: 'apiToken',
+						value: apiToken
+					}).then(function (res) {
+						// console.log(res);
+						document.querySelector('.dados').style.display = "none";
+						document.querySelector('.consulta').style.display = "inline-block";
+					}).catch(function (err) {
+						console.log(err);
+					});
 				});
-				//To access locale
-				App.locale;
 
-				//To access localresources
-				App.localeResource
+				(function () {
+					'use strict'
+					const forms = document.querySelectorAll('.needs-validation')
+					Array.prototype.slice.call(forms)
+						.forEach(function (form) {
+							form.addEventListener('submit', function (event) {
+								if (!form.checkValidity()) {
+									event.preventDefault()
+									event.stopPropagation()
+								}
+								form.classList.add('was-validated')
+							}, false)
+						});
+				})();
 
-				//To Know more on these, please read the documentation
+				function processAjaxData(response, urlPath) {
+					document.getElementById("content").innerHTML = response.html;
+					document.title = response.pageTitle;
+					window.history.pushState({
+						"html": response.html,
+						"pageTitle": response.pageTitle
+					}, "", urlPath);
+				};
 
+				document.getElementById('btn-buscar').addEventListener('click', () => {
+
+					const busca = document.querySelector("#busca").value;
+
+					ZOHODESK.set('extension.config', {
+						name: 'busca',
+						value: busca
+					}).then(function (res) {
+						// console.log(res);
+					}).catch(function (err) {
+						console.log(err);
+					});
+
+					ZOHODESK.get("extension.config").then(function (
+						response) {
+						console.log(response[
+							'extension.config']);
+
+						const config = (response[
+							'extension.config']);
+						console.log(config);
+						const nomeLojaC = (config[0].value);
+						const buscaC = (config[1].value);
+						const apiTokenC = (config[2].value);
+						const apiKeyC = (config[3].value);
+
+						const sampleRequestObj = {
+							url: "https://" + nomeLojaC +
+								".vtexcommercestable.com.br/api/oms/pvt/orders/" + buscaC,
+							type: "GET",
+							data: {},
+							headers: {
+								"Accept": "application/json",
+								"Content-Type": "application/json",
+								"X-VTEX-API-AppKey": apiKeyC,
+								"X-VTEX-API-AppToken": apiTokenC
+							},
+							connectionLinkName: "",
+							responeType: "arraybuffer",
+							fileObj: [{
+								key: "",
+								file: ""
+							}]
+						};
+
+						ZOHODESK.request(sampleRequestObj)
+							.then(res => {
+								console.log(res);
+								
+								//Função que formata o valor em real
+								function formatReal(int) {
+									var tmp = int + '';
+									tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+									if (tmp.length > 6)
+										tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g,
+										".$1,$2");
+
+									return tmp;
+								}
+
+								//Função que converte data
+								function convertDate(dateString) {
+									var p = dateString.split(/\D/g)
+									return [p[2], p[1], p[0]].join("-")
+								}
+
+								const result = (res.data);
+
+								//Nome da loja
+								const nomeLoja = result.hostname;
+								document.querySelector('.nome-loja').textContent = nomeLoja;
+
+								//Logo loja
+								const logoLoja = result.sellers;
+								if (logoLoja[0].logo != '') {
+									document.querySelector('.logo-loja').src = logoLoja[0]
+										.logo;
+								}
+
+								//Nome do cliente
+								const nome = result.clientProfileData;
+								document.querySelector('.nome-cliente').textContent = nome
+									.firstName +
+									' ' + nome.lastName;
+
+								//Endereço do cliente
+								const endereco = result.shippingData.address;
+								document.querySelector('.rua-numero').textContent = endereco
+									.street +
+									',' + endereco.number;
+								document.querySelector('.bairro').textContent = endereco
+									.neighborhood;
+								document.querySelector('.cidade-estado').textContent =
+									endereco.city +
+									'/' + endereco.state;
+								document.querySelector('.cep-pais').textContent = endereco
+									.postalCode + '-' + endereco.country;
+
+								const moeda = result.storePreferencesData.currencyCode;
+
+								//Dados dos itens comprados (cria um a cada produto encontrado)
+								const items = result.items;
+								items.forEach(function (elemento) {
+									const pai = document.querySelector('.pai');
+
+									const pedidos = document.createElement('div');
+									pedidos.classList.add('card1');
+									pai.appendChild(pedidos);
+
+									const flex = document.createElement('div');
+									flex.classList.add('flex');
+									pedidos.appendChild(flex);
+
+									const separa = document.createElement('div');
+									separa.classList.add('div-img')
+									flex.appendChild(separa);
+
+									//Imagem do produto
+									const imagemProduto = document.createElement(
+										'img');
+									imagemProduto.src = elemento.imageUrl;
+									separa.appendChild(imagemProduto);
+
+									const separa2 = document.createElement('div');
+									separa2.classList.add('div-cem');
+									flex.appendChild(separa2);
+
+									//Nome do produto
+									const nomeProduto = document.createElement('p');
+									nomeProduto.textContent = elemento.name;
+									separa2.appendChild(nomeProduto);
+
+									//Id do produto
+									const idProduto = document.createElement('p');
+									idProduto.textContent = elemento.id;
+									separa2.appendChild(idProduto);
+
+									const separa3 = document.createElement('div');
+									separa3.classList.add('div-direita');
+									separa3.classList.add('div-cem');
+									flex.appendChild(separa3);
+
+									//Quantidade do produto
+									const qtdProduto = document.createElement('p');
+									qtdProduto.textContent = elemento.quantity;
+									if (qtdProduto.textContent > 1) {
+										qtdProduto.textContent = elemento.quantity +
+											' ' +
+											'itens'
+									} else {
+										qtdProduto.textContent = elemento.quantity +
+											' ' +
+											'item'
+									}
+
+									separa3.appendChild(qtdProduto);
+
+									//Preço do produto
+									const precoProduto = document.createElement('p');
+									precoProduto.textContent = elemento.price;
+									precoProduto.textContent = formatReal(precoProduto
+										.textContent) + ' ' + moeda
+									separa3.appendChild(precoProduto);
+
+									const linha = document.createElement('hr')
+									pedidos.append(linha);
+								})
+
+								const pai = document.querySelector('.pai');
+
+								const flex = document.createElement('div');
+								pai.appendChild(flex);
+
+								const totais = result.totals;
+
+								//Desconto
+								const precoDesconto = document.createElement('div');
+								precoDesconto.classList.add('flex2');
+								flex.appendChild(precoDesconto);
+
+								const descontoTitulo = document.createElement('h6');
+								descontoTitulo.textContent = 'Total de desconto';
+								precoDesconto.appendChild(descontoTitulo);
+
+								const desconto = document.createElement('p');
+								desconto.textContent = totais[1].value;
+								desconto.textContent = formatReal(desconto.textContent)
+								precoDesconto.appendChild(desconto);
+
+								//Frete
+								const precoFrete = document.createElement('div');
+								precoFrete.classList.add('flex2');
+								flex.appendChild(precoFrete);
+
+								const freteTitulo = document.createElement('h6');
+								freteTitulo.textContent = 'Total de frete';
+								precoFrete.appendChild(freteTitulo);
+
+								const frete = document.createElement('p');
+								frete.textContent = totais[2].value;
+								frete.textContent = formatReal(frete.textContent)
+								precoFrete.appendChild(frete);
+
+								//Taxa
+								const precoTaxa = document.createElement('div');
+								precoTaxa.classList.add('flex2');
+								flex.appendChild(precoTaxa);
+
+								const taxaTitulo = document.createElement('h6');
+								taxaTitulo.textContent = 'Total de taxa';
+								precoTaxa.appendChild(taxaTitulo);
+
+								const taxa = document.createElement('p');
+								taxa.textContent = totais[3].value;
+								taxa.textContent = formatReal(taxa.textContent)
+								precoTaxa.appendChild(taxa);
+
+								const pulaLinha = document.createElement('br');
+								flex.appendChild(pulaLinha);
+
+								//Total
+								const precoTotal = document.createElement('div');
+								precoTotal.classList.add('flex2');
+								flex.appendChild(precoTotal);
+
+								const totalTitulo = document.createElement('h6');
+								totalTitulo.textContent = 'Total dos itens';
+								precoTotal.appendChild(totalTitulo);
+
+								const total = document.createElement('p');
+								total.textContent = result.value;
+								total.textContent = formatReal(total.textContent)
+								precoTotal.appendChild(total);
+
+								const tipoMoeda = document.createElement('div');
+								tipoMoeda.classList.add('flex2');
+								flex.appendChild(tipoMoeda);
+
+								const vazio = document.createElement('h6');
+								vazio.textContent = ' '
+								tipoMoeda.appendChild(vazio);
+
+								const moedaTotal = document.createElement('p');
+								moedaTotal.textContent = moeda;
+								tipoMoeda.appendChild(moedaTotal);
+
+								//Entrega
+								const entrega = document.createElement('h5');
+								entrega.textContent = 'Forma de entrega';
+								pai.appendChild(entrega);
+
+								const logistica = result.shippingData.logisticsInfo;
+
+								//Tipo de entrega
+								const tipoEntrega = document.createElement('p');
+								tipoEntrega.textContent = logistica[0].selectedSla;
+								pai.appendChild(tipoEntrega);
+
+								//Data entrega
+								const dataEntrega = document.createElement('p');
+								dataEntrega.textContent = logistica[0].shippingEstimateDate;
+								dataEntrega.classList.add('data');
+
+								const novaDataEntrega = dataEntrega.textContent.split('T');
+								const apenasData = novaDataEntrega[0];
+								const apenasDataConvertida = convertDate(apenasData);
+
+								const apenasHora = novaDataEntrega[1];
+								const apenasHoraConvertida = apenasHora.slice(0, 5);
+
+								dataEntrega.textContent = 'Estimado: ' +
+									apenasDataConvertida + ' ' +
+									apenasHoraConvertida;
+
+								pai.appendChild(dataEntrega);
+
+								//Forma entrega
+								const formaEntrega = document.createElement('p');
+								formaEntrega.textContent = logistica[0].deliveryCompany;
+								pai.appendChild(formaEntrega);
+							}, (error) => {
+								console.log(error);
+							});
+
+					}).catch(function (err) {
+						console.log(err);
+					});
+				});
 			});
 		};
 	</script>
-
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+	</script>
 </body>
 
 </html>

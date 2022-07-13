@@ -4,41 +4,42 @@
   ],
   "service": "DESK",
   "storage": true,
-  "type": "org",
+  "type": "personal",
   "whiteListedDomains": [
-    "https://{{nomeLoja}}.vtexcommercestable.com.br/api/oms/pvt/orders/",
-    "https://desk.zoho.com"
+    "https://{{nomeLoja}}.vtexcommercestable.com.br/api/oms/pvt/orders/{{busca}}"
   ],
   "modules": {
     "widgets": [
       {
         "location": "desk.ticket.detail.rightpanel",
         "url": "/app/widget.html",
-        "name": "Desk Extension",
+        "name": "VTEX Desk Extension",
         "logo": "/app/img/logo.png",
         "icon": "/app/img/icon.png"
       }
     ]
   },
   "cspDomains": {
-    "connect-src": [
-      "https://{{nomeLoja}}.vtexcommercestable.com.br/api/oms/pvt/orders/"
-    ]
+    "connect-src": []
   },
   "zohoAuthorisation": {},
   "connectors": [],
   "config": [
     {
       "name": "nomeLoja",
-      "value": ""
+      "value": "nomeLoja"
+    },
+    {
+      "name": "busca",
+      "value": "busca"
     },
     {
       "name": "apiKey",
-      "value": ""
+      "value": "apiKey"
     },
     {
       "name": "apiToken",
-      "value": ""
+      "value": "apiToken"
     }
   ],
   "moduleSupport": true
