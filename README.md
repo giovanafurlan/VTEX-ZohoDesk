@@ -7,6 +7,7 @@ npm install -g zoho-extension-toolkit
 ```
 
 Run
+
 This command runs the http server hosting the extension.
 
 ```
@@ -34,6 +35,7 @@ If the Proceed to Unsafe option does not appear, enable the chrome://flags/#allo
 
 
 Pack
+
 To pack your extension
 ```
 zet pack
