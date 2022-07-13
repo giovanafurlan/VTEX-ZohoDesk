@@ -23,6 +23,18 @@ This command makes the http server accessible through the 5000 port of your loca
 To test your extension, perform the following steps:
 
 Depending on the computer you use, open Terminal or Command Prompt and navigate to your project folder.
+
 Execute the zet run command.
+
 If you use Mozilla Firefox, open [https://127.0.0.1:5000/plugin-manifest.json] in a new tab, and click Advanced ---> Accept the Risk and Continue.
-If you use Google Chrome, open [https://127.0.0.1:5000/plugin-manifest.json] in a new tab and click Advanced ---> Proceed to Unsafe. If the Proceed to Unsafe option does not appear, enable the chrome://flags/#allow-insecure-localhost Chrome flag and restart the browser.  
+
+If you use Google Chrome, open [https://127.0.0.1:5000/plugin-manifest.json] in a new tab and click Advanced ---> Proceed to Unsafe. 
+
+If the Proceed to Unsafe option does not appear, enable the chrome://flags/#allow-insecure-localhost Chrome flag and restart the browser.  
+
+
+Pack
+To pack your extension
+```
+zet pack
+```
