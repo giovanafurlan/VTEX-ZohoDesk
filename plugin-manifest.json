@@ -1,0 +1,61 @@
+{
+  "locale": [
+    "en"
+  ],
+  "service": "DESK",
+  "storage": false,
+  "type": "personal",
+  "whiteListedDomains": [
+    "https://{{nomeloja}}.vtexcommercestable.com.br"
+  ],
+  "modules": {
+    "widgets": [
+      {
+        "location": "desk.ticket.detail.rightpanel",
+        "url": "/app/widget.html",
+        "name": "Desk Extension",
+        "logo": "/app/img/logo.png",
+        "icon": "/app/img/icon.png"
+      }
+    ]
+  },
+  "cspDomains": {
+    "connect-src": [
+      "https://cors-anywhere.herokuapp.com",
+      "https://webpeak.vtexcommercestable.com.br"
+    ]
+  },
+  "zohoAuthorisation": {},
+  "connectors": [],
+  "config": [
+    {
+      "name": "nomeloja",
+      "userdefined": true,
+      "type": "text",
+      "value": "nomeloja",
+      "mandatory": false,
+      "secure": false
+    },
+    {
+      "name": "apikey",
+      "userdefined": true,
+      "type": "text",
+      "value": "apikey",
+      "mandatory": false,
+      "secure": false
+    },
+    {
+      "name": "apitoken",
+      "userdefined": true,
+      "type": "text",
+      "value": "apitoken",
+      "mandatory": false,
+      "secure": false
+    },
+    {
+      "name": "email",
+      "value": "email"
+    }
+  ],
+  "moduleSupport": true
+}
